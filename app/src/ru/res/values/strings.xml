@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MobilkaEdu3</string>
+    <string name="text_image1">Изображение 1</string>
+    <string name="text_image2">Изображение 2</string>
+    <string name="text_image3">Изображение 3</string>
+    <string name="text_button_main">Нажми на меня!</string>
+</resources>

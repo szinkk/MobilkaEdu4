@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MobilkaEdu3</string>
+    <string name="text_image1">Image 1</string>
+    <string name="text_image2">Image 2</string>
+    <string name="text_image3">Image 3</string>
+    <string name="text_button_main">Push me!</string>
+</resources>
