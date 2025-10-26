@@ -6,7 +6,6 @@ import androidx.activity.ComponentActivity
 import com.example.mobilkaedu3.databinding.ActivitySecondaryBinding
 
 class SecondaryActivity : ComponentActivity() {
-
     private lateinit var binding: ActivitySecondaryBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,32 +14,18 @@ class SecondaryActivity : ComponentActivity() {
         binding = ActivitySecondaryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        changeImageView()
+        setupButtonListeners()
     }
 
-    private fun changeImageView() {
-        binding.buttonOne.setOnClickListener {
-            returnResult(1)
-        }
-
-        binding.buttonTwo.setOnClickListener {
-            returnResult(2)
-        }
-
-        binding.buttonThree.setOnClickListener {
-            returnResult(3)
-        }
+    private fun setupButtonListeners() {
+        binding.buttonOne.setOnClickListener { returnResult(1) }
+        binding.buttonTwo.setOnClickListener { returnResult(2) }
+        binding.buttonThree.setOnClickListener { returnResult(3) }
     }
 
     private fun returnResult(imageId: Int) {
-        // Создаем Bundle и группируем в нем данные
-        val resultBundle = Bundle().apply {
-            putInt("selected_image_id", imageId)
-        }
-
-        // Создаем Intent и передаем Bundle с помощью putExtra
         val resultIntent = Intent().apply {
-            putExtra("result_bundle", resultBundle)  // Bundle как объект
+            putExtra("selected_image_id", imageId)
         }
 
         setResult(RESULT_OK, resultIntent)
