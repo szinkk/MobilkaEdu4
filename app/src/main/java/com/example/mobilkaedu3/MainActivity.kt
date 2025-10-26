@@ -7,14 +7,8 @@ import com.example.mobilkaedu3.databinding.ActivityMainBinding
 
 
 class MainActivity : ComponentActivity() {
-
     private lateinit var binding: ActivityMainBinding
     private var selectedImageId = 1
-
-    companion object {
-        private const val SELECT_IMAGE_REQUEST = 1
-        private const val RESULT_BUNDLE_KEY = "result_bundle"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,39 +16,31 @@ class MainActivity : ComponentActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Восстанавливаем состояние из Bundle (при повороте экрана)
-        savedInstanceState?.let { bundle ->
-            selectedImageId = bundle.getInt("SELECTED_IMAGE_ID", 1)
+        savedInstanceState?.let {
+            selectedImageId = it.getInt("SELECTED_IMAGE_ID", 1)
         }
 
-        setupUI()
+        requestSecondary()
+        updateImage()
     }
 
-    // Сохраняем состояние в Bundle
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt("SELECTED_IMAGE_ID", selectedImageId)
     }
 
-    private fun setupUI() {
-        updateImage()
-
+    private fun requestSecondary() {
         binding.buttonNextActivity.setOnClickListener {
-            val intent = Intent(this, SecondaryActivity::class.java)
-            startActivityForResult(intent, SELECT_IMAGE_REQUEST)
+            startActivityForResult(
+                Intent(this, SecondaryActivity::class.java), 1)
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == SELECT_IMAGE_REQUEST && resultCode == RESULT_OK) {
-            // Получаем Bundle из Intent с помощью getBundleExtra
-            val resultBundle = data?.getBundleExtra(RESULT_BUNDLE_KEY)
-            val imageId = resultBundle?.getInt("selected_image_id", 1) ?: 1
-            selectedImageId = imageId
-            updateImage()
-        }
+        selectedImageId = data?.getIntExtra("selected_image_id", 1) ?: 1
+        updateImage()
     }
 
     private fun updateImage() {
